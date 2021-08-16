@@ -15,5 +15,5 @@ mgr = owm.weather_manager()
 def current_weather(place):
     observation = mgr.weather_at_place(f'{place}')
     w = observation.weather
-    result = w.detail_status
-    return result.text
+    result = w.detailed_status
+    return result
