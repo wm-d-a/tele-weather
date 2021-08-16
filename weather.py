@@ -1,7 +1,7 @@
 from pyowm import OWM
 from pyowm.utils import config
 from pyowm.utils import timestamps
-from googletrans import Translator
+
 
 
 # ---------- FREE API KEY examples ---------------------
@@ -14,9 +14,8 @@ mgr = owm.weather_manager()
 
 
 def current_weather(place):
-    translator = Translator()
     observation = mgr.weather_at_place(f'{place}')
     w = observation.weather
-    result = translator.translate('cloud', src='en', dest='ru')
+    result = w.detail_status
     return result.text
 
