@@ -1,12 +1,11 @@
 from pyowm import OWM
 from pyowm.utils import config
 from pyowm.utils import timestamps
-
-
+from tokens import owm_token
 
 # ---------- FREE API KEY examples ---------------------
 
-owm = OWM('c5115b02740f5ac8db830af5047643ef')
+owm = OWM(str(owm_token))
 mgr = owm.weather_manager()
 
 
@@ -18,4 +17,3 @@ def current_weather(place):
     w = observation.weather
     result = w.detail_status
     return result.text
-

@@ -1,8 +1,8 @@
 import telebot
 from weather import *
-import token
+from tokens import token
 
-bot = telebot.TeleBot(token.token)
+bot = telebot.TeleBot(token)
 
 
 @bot.message_handler(commands=['start', 'help'])
