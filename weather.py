@@ -15,5 +15,9 @@ mgr = owm.weather_manager()
 def current_weather(place):
     observation = mgr.weather_at_place(f'{place}')
     w = observation.weather
-    result = w.detailed_status
+    temp_dict_celsius = w.temperature('celsius')  # guess?
+    # print(temp_dict_celsius)
+    result = w.detailed_status + ' ' + f'\nМиниманльная температура: {temp_dict_celsius["temp_min"]}' + \
+             f'\nМаксимальная температура: {temp_dict_celsius["temp_max"]}' + \
+             f'\nЧувствется как: {temp_dict_celsius["feels_like"]}'
     return result
