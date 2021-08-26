@@ -1,24 +1,52 @@
 import telebot
 from weather import *
 from tokens import token
+import datetime
 
 bot = telebot.TeleBot(token)
 
 
+def log(user, command, *args):
+    now = datetime.datetime.now()
+    logs = open('log.txt', 'a')
+    log_message = f'[{str(now)}] id: {user}, {command}, {"; ".join(args)}'
+    logs.writelines(log_message + '\n')
+    logs.close()
+    print(log_message)
+
+
 @bot.message_handler(commands=['start', 'help'])
 def send_welcome(message):
-    bot.reply_to(message, "Hello, I'm your first bot :D")
+    bot.reply_to(message,
+                 f"Hello {message.from_user.first_name},\ "
+                 f"this is a simple bot for receiving current weather information. \nTo start entering /weather")
+    log(message.from_user.id, '/start')
 
 
 @bot.message_handler(func=lambda m: True)
-def echo_all(message):  # Здесь пишется логика
+def main_func(message):  # Здесь пишется логика
+
     if message.text == '/weather':
-        bot.send_message(message.from_user.id, 'Введи название города')
-        bot.register_next_step_handler(message, weather)
+        try:
+            log(message.from_user.id, '/weather')
+            bot.send_message(message.from_user.id, 'Enter the name of the city')
+            bot.register_next_step_handler(message, weather)
+
+        except Exception:
+            bot.send_message(message.from_user.id, 'There was a sudden error, take a try again later')
+            log(message.from_user.id, '/weather', 'Error in : /weather')
+    else:
+        log(message.from_user.id, "announced user message", message.text)
 
 
 def weather(message):
-    bot.send_message(message.from_user.id, f'Сегодня в {message.text}: {current_weather(message.text)}')
+    try:
+        log(message.from_user.id, '/weather', message.text)
+        bot.send_message(message.from_user.id, f'Today in {message.text}: {current_weather(message.text)}')
+        log(message.from_user.id, '/weather', 'send_message')
+    except Exception:
+        bot.send_message(message.from_user.id, 'There was a sudden error, take a try again later')
+        log(message.from_user.id, '/weather', 'Error in : get weather')
 
 
 bot.polling()
