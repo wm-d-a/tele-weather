@@ -15,38 +15,45 @@ def log(user, command, *args):
     print(log_message)
 
 
-@bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-    bot.reply_to(message,
-                 f"Hello {message.from_user.first_name},\ "
-                 f"this is a simple bot for receiving current weather information. \nTo start entering /weather")
-    log(message.from_user.id, '/start')
+def main():
+    @bot.message_handler(commands=['start', 'help'])
+    def send_welcome(message):
+        bot.reply_to(message,
+                     f"Hello {message.from_user.first_name}, "
+                     f"this is a simple bot for receiving current weather information. \nTo start entering /weather")
+        log(message.from_user.id, '/start')
 
+    @bot.message_handler(func=lambda m: True)
+    def main_func(message):  # Здесь пишется логика
 
-@bot.message_handler(func=lambda m: True)
-def main_func(message):  # Здесь пишется логика
+        if message.text == '/weather':
+            try:
+                log(message.from_user.id, '/weather')
+                bot.send_message(message.from_user.id, 'Enter the name of the city')
+                bot.register_next_step_handler(message, weather)
 
-    if message.text == '/weather':
+            except Exception:
+                bot.send_message(message.from_user.id, 'There was a sudden error, take a try again later')
+                log(message.from_user.id, '/weather', 'Error in : /weather')
+        else:
+            log(message.from_user.id, "announced user message", message.text)
+
+    def weather(message):
         try:
-            log(message.from_user.id, '/weather')
-            bot.send_message(message.from_user.id, 'Enter the name of the city')
-            bot.register_next_step_handler(message, weather)
-
+            log(message.from_user.id, '/weather', message.text)
+            bot.send_message(message.from_user.id,
+                             f'Today in {message.text.capitalize()}: {current_weather(message.text)}')
+            log(message.from_user.id, '/weather', 'send_message')
         except Exception:
             bot.send_message(message.from_user.id, 'There was a sudden error, take a try again later')
-            log(message.from_user.id, '/weather', 'Error in : /weather')
-    else:
-        log(message.from_user.id, "announced user message", message.text)
+            log(message.from_user.id, '/weather',
+                'Error in : There was a sudden mistake, check the name of the city or try again later')
+
+    bot.polling()
 
 
-def weather(message):
-    try:
-        log(message.from_user.id, '/weather', message.text)
-        bot.send_message(message.from_user.id, f'Today in {message.text}: {current_weather(message.text)}')
-        log(message.from_user.id, '/weather', 'send_message')
-    except Exception:
-        bot.send_message(message.from_user.id, 'There was a sudden error, take a try again later')
-        log(message.from_user.id, '/weather', 'Error in : get weather')
-
-
-bot.polling()
+try:
+    main()
+except Exception:
+    log(user='', command='\nREBOOT\n')
+    main()
