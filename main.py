@@ -47,7 +47,7 @@ def main():
         except Exception:
             bot.send_message(message.from_user.id, 'There was a sudden error, take a try again later')
             log(message.from_user.id, '/weather',
-                'Error in : There was a sudden mistake, check the name of the city or try again later')
+                'Error in : There was a sudden mistake, check the name of the city or try again later (/weather)')
 
     bot.polling()
 
