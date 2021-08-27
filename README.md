@@ -1,18 +1,18 @@
-# SIMPLE-TELE-WEATHER
+# Simple tele-weather
 Simple-tele-weather this is a bot for receiving current weather in the selected city. The bot is based on the pyTelegraBotAPI library for Python, it provides a bot, as well as on Pyowm, it provides weather information.
 
-# PREPARATION FOR LAUNCH
+# Before the start
 
 You need to register your bot from [@BotFather](https://t.me/botfather#:~:text=BotFather%20is%20the%20one%20bot,BotFather%20right%20away.) to get a token. After that you need to register on [OpenWeatherMap](https://openweathermap.org/) to get a token for pyowm.
 
-# HOW TO RUN IT
+# How to run it
 To start the bot you need to have: [Python](https://www.python.org/), [pyTelegramBotAPI](https://pypi.org/project/pyTelegramBotAPI/) library, [pyowm](https://pypi.org/project/pyowm/) library 
 
-After receiving the tokens, you need to cloning this repository (using Git or download the archive). In the repository you need to create a tokens.py file. There should be two variables in the created file: token (stores the token received from BotFather) and OWM _Token (stores the token is kept on OpenWeatherMap). They write the resulting tokens.
+After receiving the tokens, you need to clone this repository (using Git or download the archive). In the repository you need to create a tokens.py file. There should be two variables in the created file: token (stores the token received from BotFather) and owm _token (stores the token which is kept on OpenWeatherMap). They write the resulting tokens.
 
 To start run main.py
 
-# HOW TO RUN IT (FOR TERMUX)
+# How to run it (for termux)
 Enter these commands to install and start the bot:
 
  1. `pkg upgrade`
