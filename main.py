@@ -1,12 +1,12 @@
 import telebot
 from weather import *
-from tokens import token
+from tokens import tele_token
 import datetime
 
-bot = telebot.TeleBot(token)
+bot = telebot.TeleBot(tele_token)
 
 
-def log(user, command, *args):  # Logging by template: <date an time> <chat id> <command> <other options>
+def log(user, command, *args):  # Logging by template: <date and time> <chat id> <command> <other options>
     now = datetime.datetime.now()
     logs = open('log.txt', 'a')
     log_message = f'[{str(now)}] id: {user}, {command}, {"; ".join(args)}'
