@@ -6,7 +6,7 @@ import datetime
 bot = telebot.TeleBot(token)
 
 
-def log(user, command, *args):
+def log(user, command, *args):  # Logging by template: <date an time> <chat id> <command> <other options>
     now = datetime.datetime.now()
     logs = open('log.txt', 'a')
     log_message = f'[{str(now)}] id: {user}, {command}, {"; ".join(args)}'
@@ -25,7 +25,6 @@ def main():
 
     @bot.message_handler(func=lambda m: True)
     def main_func(message):  # Здесь пишется логика
-
         if message.text == '/weather':
             try:
                 log(message.from_user.id, '/weather')
