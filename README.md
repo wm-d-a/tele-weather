@@ -8,7 +8,7 @@ You need to register your bot from [@BotFather](https://t.me/botfather#:~:text=B
 # How to run it
 To start the bot you need to have: [Python](https://www.python.org/), [pyTelegramBotAPI](https://pypi.org/project/pyTelegramBotAPI/) library, [pyowm](https://pypi.org/project/pyowm/) library 
 
-After receiving the tokens, you need to clone this repository (using Git or download the archive). In the repository you need to create a tokens.py file. There should be two variables in the created file: token (stores the token received from BotFather) and owm _token (stores the token which is kept on OpenWeatherMap). They write the resulting tokens.
+After receiving the tokens, you need to clone this repository (using the Git or download the archive). Tokens need to be recorded in `tokens.py` to the corresponding variables. That is, in `tele_token`, you write to the token received from the telegram, and in the `owm_token`, write token from OpenWeatherMap.
 
 To start run main.py
 
@@ -22,6 +22,7 @@ Enter these commands to install and start the bot:
  5. `pkg install git`
  6. `git clone https://github.com/wm-d-a/tele-weather`
  7. `cd tele-weather`
- 8. `echo token="'YOUR TELEGRAM TOKEN'" >> tokens.py`
- 9. `echo owm_token="'YOR OWM TOKEN'" >> tokens.py`
- 10. `python3 main.py` 
+ 8. `rm tokens.py`
+ 9. `echo token="'YOUR TELEGRAM TOKEN'" >> tokens.py`
+ 10. `echo owm_token="'YOR OWM TOKEN'" >> tokens.py`
+ 11. `python3 main.py` 
